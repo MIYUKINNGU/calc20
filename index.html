@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1 id="que"></h1>
+        <h2 id="pass"></h2>
+        <p>割り算は小数第2位まで求めるということにする。</p>
+        <h2 id="clear"></h2>
+        <input type="text" id="ans">
+        <input type="button" onclick="Reset()" value="Answer">
+        <script>
+            let a=0;
+            let b=0;
+            let type=0;
+            let Qc = 0;
+            function Reset() {
+                function MakeQ() {
+                    Qc++;
+                    const Q = document.getElementById("que");
+                    const f = (a,b,x) => (b-a)*x+a
+                    type = Math.floor(Math.random()*4);
+                    a = Math.floor(f(10000, 99999,Math.random()));
+                    b = Math.floor(f(10000, 99999,Math.random()));
+                    
+                    if (type == 0) Q.innerText = `${a}+${b}=?`;
+                    else if (type == 1) Q.innerText = `${a}-${b}=?`;
+                    else if (type == 2) Q.innerText = `${a}×${b}=?`;
+                    else if (type >=3) Q.innerText = `${a}÷${b}=?`;
+                }
+                const Q = document.getElementById("que");
+                if (Q.textContent == "") {
+                    MakeQ();
+                }
+                else {
+                    const Ans = document.getElementById("ans")
+                    const P = document.getElementById("pass")
+                    if (type==0) {
+                        if (Ans.value == a+b) {
+                            P.innerText = "〇";
+                            MakeQ();
+                        }
+                        else
+                            P.innerText = "×";
+                    }
+                    else if (type==1) {
+                        if (Ans.value == a-b) {
+                            P.innerText = "〇";
+                            MakeQ();
+                        }
+                        else
+                            P.innerText = "×";
+                    }
+                    else if (type==2) {
+                        if (Ans.value == a*b) {
+                            P.innerText = "〇";
+                            MakeQ();
+                        }
+                        else
+                            P.innerText = "×";
+                    }
+                    else if (type>=3) {
+                        if (Ans.value == Math.floor(100*(a/b))/100) {
+                            P.innerText = "〇";
+                            MakeQ();
+                        }
+                        else
+                            P.innerText = "×";
+                    }
+                    Ans.value = "";
+                }
+                const C = document.getElementById("clear");
+                if (Qc == 20) C.innerText = "CLEAR";
+                else C.innerText = "";
+            }
+        </script>
+    </body>
+</html>
